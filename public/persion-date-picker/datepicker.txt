@@ -1,0 +1,7 @@
+<input type="text" class="form-control perisan_date" name="end_date" id="end_date" placeholder="{{ trans('words.Deadline') }}">
+
+ $(".perisan_date").persianDatepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+        });
