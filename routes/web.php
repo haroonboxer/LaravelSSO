@@ -1,6 +1,7 @@
 <?php
 
 use App\Auth\SSOUser;
+use App\Http\Controllers\apirequestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\UserController;
@@ -48,11 +49,16 @@ Route::middleware('auth:sso')->group(function () {
         Route::get('/user/deactive/{id?}', 'deactive')->name('user.deactive');
         Route::get('/user/active/{id?}', 'active')->name('user.active');
         Route::post('/user/change/password', 'changePasswordByAdmin')->name('user.changePassword');
+        Route::post('/CheckRoute', 'changePasswordByAdmin')->name('user.changePassword');
+        // api routes
+
     });
+
     # --------------------------------- End Users Routes ---------------------------------
 
     #------------------------------------- CheckTestCOntroller Routes------------------------
     Route::controller(CheckTestController::class)->group(function () {
         Route::get('checkTest', 'index')->name('checkTest');
+        Route::get('/getProject', 'getProject');
     });
 });

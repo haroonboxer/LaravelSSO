@@ -32,7 +32,7 @@ class JwtGuard implements Guard
                     'HS256'
                 )
             );
-             
+
             // -------------------------
             // SAFE ROLE PARSING
             // -------------------------
@@ -49,28 +49,28 @@ class JwtGuard implements Guard
             // -------------------------
             // SAFE CLAIMS PARSING
             // -------------------------
-          $claimsRaw = $decoded->role_claims ?? [];
+            $claimsRaw = $decoded->role_claims ?? [];
 
-                $claims = is_string($claimsRaw)
-                    ? json_decode($claimsRaw, true)
-                    : $claimsRaw;
+            $claims = is_string($claimsRaw)
+                ? json_decode($claimsRaw, true)
+                : $claimsRaw;
 
-                if (!is_array($claims)) {
-                    $claims = [];
-                }
+            if (!is_array($claims)) {
+                $claims = [];
+            }
 
-                $claims = array_map(function ($c) {
+            $claims = array_map(function ($c) {
 
-                    return [
-                        'type' => trim($c['ClaimType'] ?? ''),
-                        'allowed' => filter_var($c['ClaimValue'] ?? false, FILTER_VALIDATE_BOOLEAN),
-                    ];
+                return [
+                    'type' => trim($c['ClaimType'] ?? ''),
+                    'allowed' => filter_var($c['ClaimValue'] ?? false, FILTER_VALIDATE_BOOLEAN),
+                ];
+            }, $claims);
 
-                }, $claims);
-                        
-                        // -------------------------
+            // -------------------------
             // CREATE USER
             // -------------------------
+
             $this->user = new SSOUser([
                 'id' => $decoded->{'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'} ?? null,
 
@@ -80,8 +80,8 @@ class JwtGuard implements Guard
 
                 'claims' => $claims,
             ]);
-          
-         
+
+
             return $this->user;
         } catch (\Exception $e) {
 
